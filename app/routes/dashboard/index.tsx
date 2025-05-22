@@ -16,7 +16,7 @@ export default function Dashboard() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
-  const [filtered,setFiltered]=useState("");
+  const [filtered,setFiltered]=useState<Feedback[]>([]);
   
   useEffect(() => {
     const token = localStorage.getItem("directus_token");
@@ -56,10 +56,11 @@ export default function Dashboard() {
                 Authorization: `Bearer ${token}`,
             },
             });
-            const userId = userRes.data.id;
+            const userId = userRes.data.data.id;
+            console.log(userId);
 
             const res = await axios.get(
-            `${directus_url}/items/feedbacks?filter[user][_eq]=${userId}`,
+            `${directus_url}/items/feedbacks?filter[user_created][_eq]=${userId}`,
             {
                 headers: {
                 Authorization: `Bearer ${token}`,
@@ -137,8 +138,8 @@ export default function Dashboard() {
 
       <div className="max-w-2xl mx-auto">
         <h2 className="text-xl font-bold mb-4">Your Feedbacks</h2>
-        {feedback.length > 0 ? (
-          feedback.map((item) => (
+        {filtered.length > 0 ? (
+          filtered.map((item) => (
             <div key={item.id} className="border p-4 rounded mb-4 shadow bg-white">
               <h3 className="text-lg font-semibold">{item.title}</h3>
               <p>{item.description}</p>
