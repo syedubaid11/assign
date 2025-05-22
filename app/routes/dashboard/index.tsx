@@ -112,7 +112,8 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen w-full p-10 bg-slate-900">
+    <div className="min-h-screen w-screen p-10 bg-slate-900 flex flex-col items-center justify-center gap-[40px]">
+      <h1 className="text-6xl">Dashboard</h1>
       <form className="max-w-md mx-auto bg-white p-6 rounded shadow mb-8" onSubmit={addFeature}>
         <h2 className="text-xl font-bold mb-4">Add Feedback</h2>
         <input
@@ -136,13 +137,13 @@ export default function Dashboard() {
         <button type="submit" className="bg-blue-600 text-white px-4 py-2 rounded">Submit</button>
       </form>
 
-      <div className="max-w-2xl mx-auto">
+      <div className="w-[600px] mx-auto">
         <h2 className="text-xl font-bold mb-4">Your Feedbacks</h2>
         {filtered.length > 0 ? (
           filtered.map((item) => (
             <div key={item.id} className="border p-4 rounded mb-4 shadow bg-white">
-              <h3 className="text-lg font-semibold">{item.title}</h3>
-              <p>{item.description}</p>
+              <h3 className="text-lg font-semibold text-black">{item.title}</h3>
+              <p className="text-black">{item.description}</p>
               <span className="text-sm text-gray-600">Category: {item.category}</span>
             </div>
           ))
